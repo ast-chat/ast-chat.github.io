@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rishabh Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #4CAF50;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        canvas {
+            margin: 20px auto;
+            display: block;
+            max-width: 100%;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Rishabh Analytics</h1>
+    </header>
+    <main>
+        <h2>Summary</h2>
+        <ul>
+            <li><strong>Total Messages:</strong> 1497</li>
+            <li><strong>Emojis Sent:</strong> 383</li>
+            <li><strong>Mentions Made:</strong> 12</li>
+            <li><strong>Average Words per Message:</strong> 5.35</li>
+            <li><strong>Average Characters per Message:</strong> 26.8</li>
+            <li><strong>Most Active Day:</strong> Sunday</li>
+            <li><strong>Most Active Hour:</strong> 20</li>
+            <li><strong>Longest Message:</strong> 522 characters</li>
+            <li><strong>Shortest Message:</strong> 1 characters</li>
+        </ul>
+        <h2>Messages by Day</h2>
+        <canvas id="messagesByDay" width="400" height="200"></canvas>
+        <h2>Messages by Hour</h2>
+        <canvas id="messagesByHour" width="400" height="200"></canvas>
+    </main>
+    <footer>
+        <p>&copy; Carter</p>
+    </footer>
+    <script>
+        const messagesByDayCtx = document.getElementById('messagesByDay').getContext('2d');
+        const messagesByHourCtx = document.getElementById('messagesByHour').getContext('2d');
+
+        new Chart(messagesByDayCtx, {
+            type: 'pie',
+            data: {
+                labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                datasets: [{
+                    label: 'Messages by Day',
+                    data: [281, 205, 219, 254, 249, 184, 105],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(199, 199, 199, 0.2)'
+                    ],
+                    borderColor: 'rgba(255, 255, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + ' messages';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        new Chart(messagesByHourCtx, {
+            type: 'line',
+            data: {
+                labels: ["12 AM", "1 AM", "2 AM", "3 AM", "4 AM", "5 AM", "6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"],
+                datasets: [{
+                    label: 'Messages by Hour',
+                    data: [17, 0, 0, 0, 0, 1, 19, 26, 77, 41, 72, 65, 100, 64, 74, 66, 102, 85, 101, 179, 181, 148, 48, 31],
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
